@@ -4,18 +4,21 @@ let numberEl = document.querySelectorAll(".number");
 let operationEl = document.querySelectorAll(".operation");
 let resultEl = document.querySelector("#result");
 let clearAllEl = document.getElementById("clear");
-let displayValues = [];
+let arrayValues = [];
 
 buttonEl.forEach((btn) => {
   btn.addEventListener("click", function () {
-    let value = btn.innerText;
+    let values = btn.innerText;
+    arrayValues.push(values);
+    let displayValues = arrayValues.join("");
+    displayScreenEl.innerText = displayValues;
     let type = btn.getAttribute("class");
     if (type === "clear") {
       clearContent();
     } else if (type === "number") {
       if (num1 === 0) {
-        num1 = btn.innerHTML;
-      } else num2 = btn.innerHTML;
+        num1 = parseInt(btn.innerText);
+      } else num2 = parseInt(btn.innerText);
     } else if (type === "operation") {
       operation = btn.innerText;
     } else if (type === "equals") {
@@ -49,20 +52,25 @@ function percentage(x, y) {
 function operate(currentOperator, a, b) {
   switch (currentOperator) {
     case "+":
-      return addition(a, b);
+      displayScreenEl.innerText = addition(a, b);
+      break;
     case "-":
-      return subtraction(a, b);
+      displayScreenEl.innerText = subtraction(a, b);
+      break;
     case "*":
-      return multiply(a, b);
+      displayScreenEl.innerText = multiply(a, b);
+      break;
     case "÷":
-      return division(a, b);
+      displayScreenEl.innerText = division(a, b);
+      break;
     case "%":
-      return percentage(a, b);
+      displayScreenEl.innerText = percentage(a, b);
+      break;
     default:
       null;
   }
 }
 function clearContent() {
   displayScreenEl.textContent = "0";
-  displayValues = [];
+  arrayValues = [];
 }
