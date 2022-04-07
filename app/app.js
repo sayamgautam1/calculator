@@ -7,16 +7,21 @@ let clearAllEl = document.getElementById("clear");
 let displayValues = [];
 
 buttonEl.forEach((btn) => {
-  btn.addEventListener("click", function (e) {
-    if (numberEl) {
-      console.log(btn.innerText);
-    } else if (clearAllEl) {
+  btn.addEventListener("click", function () {
+    let value = btn.innerText;
+    let type = btn.getAttribute("class");
+    if (type === "clear") {
       clearContent();
-      console.log(btn.innerText);
-    } else if (operationEl) {
-      console.log(btn.innerText);
+    } else if (type === "number") {
+      if (num1 === 0) {
+        num1 = btn.innerHTML;
+      } else num2 = btn.innerHTML;
+    } else if (type === "operation") {
+      operation = btn.innerText;
+    } else if (type === "equals") {
+      console.log(operate(operation, num1, num2));
     } else {
-      console.log("helloworld");
+      return;
     }
   });
 });
@@ -44,13 +49,13 @@ function percentage(x, y) {
 function operate(currentOperator, a, b) {
   switch (currentOperator) {
     case "+":
-      return add(a, b);
+      return addition(a, b);
     case "-":
-      return subtract(a, b);
+      return subtraction(a, b);
     case "*":
       return multiply(a, b);
     case "÷":
-      return divide(a, b);
+      return division(a, b);
     case "%":
       return percentage(a, b);
     default:
