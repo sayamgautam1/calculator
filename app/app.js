@@ -30,18 +30,21 @@ operationEl.forEach((opt) => {
 
 // fn to select opeation
 function operationChosen(operat) {
+  num2 = num1;
+  num1 = "";
   operation = operat;
   displayScreenEl.innerText = operation;
 }
 
 //event listener to equals sign
 resultEl.addEventListener("click", () => {
-  operate(operation, num1, num2);
+  operate(operation, parseInt(num1), parseInt(num2));
 });
 
 //event listener to clear the display
 
 clearAllEl.addEventListener("click", clearContent);
+
 // operation function of the calculator
 
 function addition(x, y) {
@@ -70,7 +73,7 @@ function operate(currentOperator, a, b) {
     case "*":
       displayScreenEl.innerText = multiply(a, b);
       break;
-    case "÷":
+    case "/":
       displayScreenEl.innerText = division(a, b);
       break;
     case "%":
@@ -80,6 +83,8 @@ function operate(currentOperator, a, b) {
       null;
   }
 }
+
+// clear all fn
 function clearContent() {
   displayScreenEl.textContent = "0";
   num1 = "";
