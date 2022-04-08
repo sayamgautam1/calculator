@@ -3,36 +3,46 @@ let buttonEl = document.querySelectorAll("button");
 let numberEl = document.querySelectorAll(".number");
 let operationEl = document.querySelectorAll(".operation");
 let resultEl = document.querySelector("#result");
-let clearAllEl = document.getElementById("clear");
-let arrayValues = [];
+let clearAllEl = document.querySelector(".clear");
 
-buttonEl.forEach((btn) => {
-  btn.addEventListener("click", function () {
-    let values = btn.innerText;
-    arrayValues.push(values);
-    let displayValues = arrayValues.join("");
-    displayScreenEl.innerText = displayValues;
-    let type = btn.getAttribute("class");
-    if (type === "clear") {
-      clearContent();
-    } else if (type === "number") {
-      if (num1 === 0) {
-        num1 = parseInt(btn.innerText);
-      } else num2 = parseInt(btn.innerText);
-    } else if (type === "operation") {
-      operation = btn.innerText;
-    } else if (type === "equals") {
-      console.log(operate(operation, num1, num2));
-    } else {
-      return;
-    }
+let num1 = "";
+let num2 = "";
+let operation = "";
+
+/// event listener for each button
+numberEl.forEach((num) => {
+  num.addEventListener("click", function (e) {
+    numChosen(e.target.innerText);
+  });
+});
+// fn to select the clicked num
+function numChosen(num) {
+  num1 += num;
+  displayScreenEl.textContent = num1;
+}
+
+//event listen for each opeartion
+operationEl.forEach((opt) => {
+  opt.addEventListener("click", (e) => {
+    operationChosen(e.target.innerText);
   });
 });
 
+// fn to select opeation
+function operationChosen(operat) {
+  operation = operat;
+  displayScreenEl.innerText = operation;
+}
+
+//event listener to equals sign
+resultEl.addEventListener("click", () => {
+  operate(operation, num1, num2);
+});
+
+//event listener to clear the display
+
+clearAllEl.addEventListener("click", clearContent);
 // operation function of the calculator
-let num1 = 0;
-let num2 = 0;
-let operation = "";
 
 function addition(x, y) {
   return x + y;
@@ -40,14 +50,14 @@ function addition(x, y) {
 function subtraction(x, y) {
   return x - y;
 }
-function multuply(x, y) {
+function multiply(x, y) {
   return x * y;
 }
 function division(x, y) {
   return x / y;
 }
 function percentage(x, y) {
-  return x % y;
+  return (x % y) * 100;
 }
 function operate(currentOperator, a, b) {
   switch (currentOperator) {
@@ -72,5 +82,7 @@ function operate(currentOperator, a, b) {
 }
 function clearContent() {
   displayScreenEl.textContent = "0";
-  arrayValues = [];
+  num1 = "";
+  num2 = "";
+  operation = "";
 }
