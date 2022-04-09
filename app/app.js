@@ -8,6 +8,7 @@ let clearAllEl = document.querySelector(".clear");
 let num1 = "";
 let num2 = "";
 let operation = "";
+let result = "";
 
 /// event listener for each button
 numberEl.forEach((num) => {
@@ -30,15 +31,27 @@ operationEl.forEach((opt) => {
 
 // fn to select opeation
 function operationChosen(operat) {
+  // if (num1 === "") {
+  //   console.log(result);
+  //   // num1 = result;
+  //   operation = operat;
+  //   displayScreenEl.innerText = operation;
+  // } else {
   num2 = num1;
   num1 = "";
   operation = operat;
   displayScreenEl.innerText = operation;
+  // }
 }
 
 //event listener to equals sign
 resultEl.addEventListener("click", () => {
-  operate(operation, parseInt(num1), parseInt(num2));
+  let resultNumber = operate(operation, parseInt(num1, 10), parseInt(num2, 10));
+  console.log(resultNumber);
+  result = resultNumber.toString();
+  displayScreenEl.innerText = result;
+  num1 = result;
+  num2 = "";
 });
 
 //event listener to clear the display
@@ -65,19 +78,19 @@ function percentage(x, y) {
 function operate(currentOperator, a, b) {
   switch (currentOperator) {
     case "+":
-      displayScreenEl.innerText = addition(a, b);
+      return addition(a, b);
       break;
     case "-":
-      displayScreenEl.innerText = subtraction(a, b);
+      return subtraction(a, b);
       break;
     case "*":
-      displayScreenEl.innerText = multiply(a, b);
+      return multiply(a, b);
       break;
     case "/":
-      displayScreenEl.innerText = division(a, b);
+      return division(a, b);
       break;
     case "%":
-      displayScreenEl.innerText = percentage(a, b);
+      return percentage(a, b);
       break;
     default:
       null;
